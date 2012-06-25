@@ -2,12 +2,6 @@
 
 APPROOT=$(cd $(dirname $0); pwd)
 
-reference_func() {
-  startNum=1
-  rangeNum=10000
-  echo $(expr $RANDOM % 10000)
-  cat $1 | sed "1d"
-}
 
 test_func() {
   REFERENCE="$APPROOT/reference.txt"
@@ -25,7 +19,7 @@ test_func() {
     --dataNum $dataNum \
     --startNum $startNum \
     --rangenum $rangeNum \
-    --fileOut $REFERENCE
+    --fileVect $REFERENCE
   $BINARY -i $REFERENCE -mode -1 > $QUERY
 
   ##  compare query with reference  ##

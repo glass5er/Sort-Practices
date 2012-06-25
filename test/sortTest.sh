@@ -3,6 +3,7 @@
 APPROOT=$(cd $(dirname $0); pwd)
 
 test_func() {
+  INPUT="$APPROOT/input.txt"
   REFERENCE="$APPROOT/reference.txt"
   QUERY="$APPROOT/result.txt"
 
@@ -19,9 +20,9 @@ test_func() {
     --dataNum $dataNum \
     --startNum $startNum \
     --rangenum $rangeNum \
-    --fileOut $REFERENCE \
-    --sortEnable
-  $BINARY -i $REFERENCE -mode $testNo > $QUERY
+    --fileVect $INPUT \
+    --fileExp  $REFERENCE
+  $BINARY -i $INPUT -mode $testNo > $QUERY
 
   ##  compare query with reference  ##
   diff -q $REFERENCE $QUERY

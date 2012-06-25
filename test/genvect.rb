@@ -6,25 +6,39 @@ opt = OptionParser.new
 dataNum = 10
 startNum = 1
 rangeNum = 10000
-fileOut = "reference.txt"
-sortEnable = false
+fileVect = "vector.txt"
+fileExp = ""
 
 opt.on('--dataNum NUM') {|v| dataNum = v.to_i }
 opt.on('--startNum NUM') {|v| startNum = v.to_i }
 opt.on('--rangeNum NUM') {|v| rangeNum = v.to_i }
-opt.on('--fileOut STRING') {|v| fileOut = v }
-opt.on('--sortEnable') {|v| sortEnable = true}
+opt.on('--fileVect STRING') {|v| fileVect = v }
+opt.on('--fileExp STRING') {|v| fileExp = v }
 
 opt.parse!(ARGV)
 
-File.open(fileOut, "w") {|dst|
+array = Array.new
+##  set array  ##
+dataNum.times{|i|
+  array.push(rand(rangeNum) + startNum)
+}
+
+def writeArray(fname)
+end
+
+File.open(fileVect, "w") {|dst|
   dst.puts("#{dataNum} #{startNum} #{rangeNum}")
-  array = Array.new
-  ##  set array  ##
+  ##  print array  ##
   dataNum.times{|i|
-    array.push(rand(rangeNum) + startNum)
+    dst.puts(array[i])
   }
-  array.sort! if(sortEnable)
+}
+
+exit if(fileExp.size < 1)
+array.sort!
+
+File.open(fileExp, "w") {|dst|
+  dst.puts("#{dataNum} #{startNum} #{rangeNum}")
   ##  print array  ##
   dataNum.times{|i|
     dst.puts(array[i])
