@@ -86,7 +86,7 @@ Sorter::radixSort(vector<int> &array, ArrayInfo arrInfo)
     range /= radix;
   }
   vector<int> binCounts(radix, 0);
-  vector< list<int> > buckets(radix);
+  vector< vector<int> > buckets(radix);
   //  set to buckets first  //
   for(int i=0; i<arrNum; i++) {
     int index = array[i] % radix;
@@ -100,7 +100,7 @@ Sorter::radixSort(vector<int> &array, ArrayInfo arrInfo)
     for(int b=0; b<radix; b++) {
       while(binCounts.at(b) > 0) {
         int targetVal = buckets.at(b).front();
-        buckets.at(b).pop_front();
+        buckets.at(b).erase(buckets.at(b).begin());
         int index = (targetVal / (int)pow(radix, d)) % radix;
         buckets.at(index).push_back(targetVal);
         binCounts.at(b) -= 1;
@@ -112,7 +112,7 @@ Sorter::radixSort(vector<int> &array, ArrayInfo arrInfo)
   for(int b=0; b<radix; b++) {
     while(buckets.at(b).size() > 0) {
       array.push_back(buckets.at(b).front());
-      buckets.at(b).pop_front();
+      buckets.at(b).erase(buckets.at(b).begin());
     }
   }
   return;
@@ -254,9 +254,7 @@ Sorter::calcPartition(vector<int> &array, int left, int right, int pivot)
     }
     if(candL > candR) break;
     //  swap  //
-    int swapTmp = array[candL];
-    array[candL] = array[candR];
-    array[candR] = swapTmp;
+    swap(array[candL], array[candR]);
     //  next  //
     candL++;
     candR--;
