@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
     //  Input Data Through  //
   }else {
     //  Sort //
-    Sorter::sort(dataArray, arrInfo, 5);
+    Sorter::sort(dataArray, arrInfo, testMode);
   }
   //  put array data  //
   int arrNum = dataArray.size();

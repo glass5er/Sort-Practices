@@ -35,7 +35,12 @@ test_func() {
 }
 
 for testNo in $(seq -f "%02g" 1 6); do
+  startTime=$(ruby -e "puts Time.now.instance_eval { '%s%03d' % [strftime('%Y%m%d%H%M%S'), (usec / 1000.0).round] }")
   test_func ${testNo} A 15  1 10
   test_func ${testNo} B 100 10 1000
-  test_func ${testNo} C 500 77 7777
+  test_func ${testNo} C 50000 77 77777
+  endTime=$(ruby -e "puts Time.now.instance_eval { '%s%03d' % [strftime('%Y%m%d%H%M%S'), (usec / 1000.0).round] }")
+  elapsedTime=$(($endTime - $startTime))
+  if [ $elapsedTime -lt 0 ]; then elapsedTime=$(expr $elapsedTime + 1000000); fi
+  echo "Elapsed Time : $elapsedTime ms"
 done
