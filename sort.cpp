@@ -92,7 +92,7 @@ Sorter::radixSort(vector<int> &array, ArrayInfo arrInfo)
     int index = array[i] % radix;
     buckets.at(index).push_back(array[i]);
   }
-  //  backet sort loop  //
+  //  bucket sort loop  //
   for(int d=1; d<digitNum; d++) {
     for(int b=0; b<radix; b++) {
       binCounts.at(b) = buckets.at(b).size();
@@ -122,12 +122,14 @@ Sorter::heapSort(vector<int> &array)
 {
   vector<int> heap(0);
   const int arrNum = array.size();
+  //  intert to heap  //
   for(int i=0; i<arrNum; i++) {
     insertHeap(heap, array[i]);
   }
+  //  pop from heap  //
   array.clear();
   for(int i=0; i<arrNum; i++) {
-    array.push_back(determineHeap(heap));
+    array.push_back(shiftHeap(heap));
   }
   return;
 }
@@ -146,7 +148,7 @@ Sorter::insertHeap(vector<int> &heap, int key)
   return;
 }
 int
-Sorter::determineHeap(vector<int> &heap)
+Sorter::shiftHeap(vector<int> &heap)
 {
   int root(heap[0]);
   heap[0] = heap.at((int)heap.size()-1);
@@ -189,18 +191,18 @@ Sorter::mergeSort(vector<int> &array)
 void
 Sorter::mergeSubArray(const vector<int> &subArrayL, const vector<int> &subArrayR, vector<int> &array)
 {
-  int l(0), r(0);
+  int left(0), right(0);
   int numL = subArrayL.size();
   int numR = subArrayR.size();
   array.clear();
-  while(l < numL || r < numR){
-    if(r >= numR || (l < numL && subArrayL[l]<subArrayR[r])){
-      array.push_back(subArrayL[l]);
-      l++;
+  while(left < numL || right < numR){
+    if(right >= numR || (left < numL && subArrayL[left]<subArrayR[right])){
+      array.push_back(subArrayL[left]);
+      left++;
     }
     else{
-      array.push_back(subArrayR[r]);
-      r++;
+      array.push_back(subArrayR[right]);
+      right++;
     }
   }
   return;

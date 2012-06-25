@@ -21,7 +21,7 @@ protected:
   //  heap sort  //
   static void heapSort(std::vector<int> &array);
   static void insertHeap(std::vector<int> &array, int key);
-  static int  determineHeap(std::vector<int> &array);
+  static int  shiftHeap(std::vector<int> &array);
   //  merge sort  //
   static void mergeSort(std::vector<int> &array);
   static void mergeSubArray(const std::vector<int> &subArrayL,
