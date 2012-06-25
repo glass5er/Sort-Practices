@@ -8,11 +8,12 @@ test_func() {
 
   BINARY="$APPROOT/../bin_sort"
   SCRIPT="$APPROOT/genvect.rb"
-  INPUT="$APPROOT/../dataset$1.csv"
 
-  dataNum=$2
-  startNum=$3
-  rangeNum=$4
+  testNo=$1
+  testPattern=$2
+  dataNum=$3
+  startNum=$4
+  rangeNum=$5
 
   ruby $SCRIPT \
     --dataNum $dataNum \
@@ -20,18 +21,21 @@ test_func() {
     --rangenum $rangeNum \
     --fileOut $REFERENCE \
     --sortEnable
-  $BINARY < $REFERENCE > $QUERY
+  $BINARY -i $REFERENCE -mode $testNo > $QUERY
 
   ##  compare query with reference  ##
-  diff $REFERENCE $QUERY
+  diff -q $REFERENCE $QUERY
   if [ $? -eq 0 ]; then
-    echo "Test $1 PASS"
+    echo "Test ${testNo}-${testPattern} PASS"
   else
-    echo "Test $1 !!!NG!!!"
+    echo "Test ${testNo}-${testPattern} !!!NG!!!"
+    exit
   fi
   rm $REFERENCE $QUERY
 }
 
-for testNo in $(seq -f "%02g" 1 3); do
-  test_func $testNo 500 1 10000
+for testNo in $(seq -f "%02g" 1 6); do
+  test_func ${testNo} A 15  1 10
+  test_func ${testNo} B 100 10 1000
+  test_func ${testNo} C 500 77 7777
 done

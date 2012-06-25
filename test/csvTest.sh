@@ -26,14 +26,15 @@ test_func() {
     --startNum $startNum \
     --rangenum $rangeNum \
     --fileOut $REFERENCE
-  $BINARY < $REFERENCE > $QUERY
+  $BINARY -i $REFERENCE -mode -1 > $QUERY
 
   ##  compare query with reference  ##
-  diff $REFERENCE $QUERY
+  diff -q $REFERENCE $QUERY
   if [ $? -eq 0 ]; then
     echo "Test $1 PASS"
   else
     echo "Test $1 !!!NG!!!"
+    exit
   fi
   rm $REFERENCE $QUERY
 }

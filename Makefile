@@ -9,20 +9,14 @@ SRC = \
 
 INCLUDE = \
 	-I./ \
-	`pkg-config opencv --cflags`
-
 
 LIB = 	\
 
 
-LIBDEF=	-lpthread \
-	-llapack \
-	`pkg-config opencv --libs`
+LIBDEF= 	\
 
 DEFINE = \
 	-D_LINUX_ \
-	-DREVISION=\"${GITREV}${GITSTATUS}\" \
-#	-DREVISION=\"NONE\" \
 
 CC = g++ -g
 
