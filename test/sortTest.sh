@@ -32,7 +32,7 @@ test_func() {
     echo "Test ${testNo}-${testPattern} !!!NG!!!"
     exit
   fi
-  rm $REFERENCE $QUERY
+  rm $INPUT $REFERENCE $QUERY
 }
 
 for testNo in $(seq -f "%02g" 1 6); do
